@@ -1,11 +1,21 @@
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
-    <h1>recipes: {{ recipes }}</h1>
+    <!-- <h1>recipes: {{ recipes }}</h1> -->
+    <div v-for="recipe in recipes">
+      <p>{{ recipe.title }}</p>
+      <p>{{ recipe.chef }}</p>
+      <p>{{ recipe.image_url }}</p>
+      <img v-bind:src="recipe.image_url">
+      <hr>
+    </div>
   </div>
 </template>
 
 <style>
+  img {
+    width: 80px;
+  }
 </style>
 
 <script>
