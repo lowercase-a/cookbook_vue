@@ -4,9 +4,9 @@
     <p>Title: <input type="text" v-model="newRecipeTitle"></p>
     <p>Chef: <input type="text" v-model="newRecipeChef"></p>
     <p>Ingredients: <input type="text" v-model="newRecipeIngredients"></p>
-    <p>Time: <input type="text" v-model="newRecipePrepTime"></p>
+    <p>PrepTime: <input type="text" v-model="newRecipePrepTime"></p>
     <p>Directions: <input type="text" v-model="newRecipeDirections"></p>
-    <button v-on:click="makeNewRecipe()">Add a new recipe</button>
+    <button v-on:click="makeRecipe()">Make a new recipe</button>
 
     <!-- <h1>recipes: {{ recipes }}</h1> -->
     <div v-for="recipe in recipes">
@@ -50,24 +50,22 @@ export default {
     })
   },
   methods: {
-    makeNewRecipe: function() {
-      console.log('making new recipe...');
-      // gather some data
-      // console.log('new recipe title');
-      // console.log(this.newRecipeTitle);
-
+    makeRecipe: function() {
+      console.log('making the new recipe');
+      // make a request to the api to the create action
+      // response = HTTP.get("/api/recipes")
+      // recipes = reponse.parse
       var params = {
         input_title: this.newRecipeTitle,
-        input_chef: this.newRecipeChef,
         input_ingredients: this.newRecipeIngredients,
+        input_directions: this.newRecipeDirections,
         input_prep_time: this.newRecipePrepTime,
-        input_directions: this.newRecipeDirections
+        input_image_url: this.newRecipeImageUrl,
+        input_chef: this.newRecipeChef
       }
 
-      console.log(params);
-      // send the data to the API
       axios.post("/api/recipes", params).then(response => {
-        console.log(response.data);
+        console.log(response);
         this.recipes.push(response.data);
       });
     }
