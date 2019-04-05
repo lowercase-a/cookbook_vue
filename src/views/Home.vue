@@ -13,6 +13,12 @@
       <p>{{ recipe.title }}</p>
       <p>{{ recipe.chef }}</p>
       <img v-bind:src="recipe.image_url">
+      <div v-if="recipe === currentRecipe">
+        <p>{{ recipe.ingredients }}</p>
+        <p>{{ recipe.directions }}</p>
+        <p>{{ recipe.prep_time }}</p>
+      </div>
+      <button v-on:click="currentRecipe = recipe">Show more info</button>
       <hr>
     </div>
   </div>
@@ -36,7 +42,8 @@ export default {
       newRecipeChef: "",
       newRecipeIngredients: "",
       newRecipePrepTime: "",
-      newRecipeDirections: ""
+      newRecipeDirections: "",
+      currentRecipe: {}
     };
   },
   created: function() {
