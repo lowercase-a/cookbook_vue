@@ -13,12 +13,12 @@
       <p>{{ recipe.title }}</p>
       <p>{{ recipe.chef }}</p>
       <img v-bind:src="recipe.image_url">
+      <button v-on:click="toggleInfo(recipe)">Show more info</button>
       <div v-if="recipe === currentRecipe">
         <p>{{ recipe.ingredients }}</p>
         <p>{{ recipe.directions }}</p>
         <p>{{ recipe.prep_time }}</p>
       </div>
-      <button v-on:click="currentRecipe = recipe">Show more info</button>
       <hr>
     </div>
   </div>
@@ -75,6 +75,16 @@ export default {
         console.log(response);
         this.recipes.push(response.data);
       });
+    },
+    toggleInfo: function(theRecipe) {
+      if (this.currentRecipe === theRecipe) {
+        // I am seeing the info already
+        this.currentRecipe = {};
+      } else {
+        // we cannot see the info
+        this.currentRecipe = theRecipe;
+      }
+      console.log('toggling info...');
     }
   }
 };
