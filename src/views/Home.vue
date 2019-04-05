@@ -25,6 +25,7 @@
         <p>image_url: <input type="text" v-model="recipe.image_url"></p>
         <p>directions: <input type="text" v-model="recipe.directions"></p>
         <button v-on:click="updateRecipe(recipe)">Update the recipe</button>
+        <button v-on:click="deleteRecipe(recipe)">Delete the recipe</button>
       </div>
       <hr>
     </div>
@@ -108,6 +109,18 @@ export default {
       axios.patch("/api/recipes/" + theRecipe.id, params).then(response => {
         console.log(response);
         theRecipe = response.data;
+      })
+    },
+    deleteRecipe: function(theRecipe) {
+      console.log('deleting the recipe...');
+      // make an HTTP request using axios to the destroy action of my API
+      axios.delete("/api/recipes/" + theRecipe.id).then(response => {
+        console.log(response);
+        // delete the recipe from the recipes array
+        // find the index of that recipe in the array
+        var index = this.recipes.indexOf(theRecipe);
+        // remove the item based on that index
+        this.recipes.splice(index, 1);
       })
     }
   }
