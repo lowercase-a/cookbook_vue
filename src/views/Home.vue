@@ -18,6 +18,13 @@
         <p>{{ recipe.ingredients }}</p>
         <p>{{ recipe.directions }}</p>
         <p>{{ recipe.prep_time }}</p>
+        <p>title: <input type="text" v-model="recipe.title"></p>
+        <p>chef: <input type="text" v-model="recipe.chef"></p>
+        <p>ingredients: <input type="text" v-model="recipe.ingredients"></p>
+        <p>prep_time: <input type="text" v-model="recipe.prep_time"></p>
+        <p>image_url: <input type="text" v-model="recipe.image_url"></p>
+        <p>directions: <input type="text" v-model="recipe.directions"></p>
+        <button v-on:click="updateRecipe(recipe)">Update the recipe</button>
       </div>
       <hr>
     </div>
@@ -85,6 +92,23 @@ export default {
         this.currentRecipe = theRecipe;
       }
       console.log('toggling info...');
+    },
+    updateRecipe: function(theRecipe) {
+      console.log(theRecipe)
+      console.log('updating the recipe...');
+      var params = {
+        input_title: theRecipe.title,
+        input_ingredients: theRecipe.ingredients,
+        input_directions: theRecipe.directions,
+        input_prep_time: theRecipe.prep_time,
+        input_image_url: theRecipe.image_url,
+        input_chef: theRecipe.chef
+      };
+
+      axios.patch("/api/recipes/" + theRecipe.id, params).then(response => {
+        console.log(response);
+        theRecipe = response.data;
+      })
     }
   }
 };
