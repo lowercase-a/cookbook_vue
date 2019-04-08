@@ -1,12 +1,7 @@
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
-    <p>Title: <input type="text" v-model="newRecipeTitle"></p>
-    <p>Chef: <input type="text" v-model="newRecipeChef"></p>
-    <p>Ingredients: <input type="text" v-model="newRecipeIngredients"></p>
-    <p>PrepTime: <input type="text" v-model="newRecipePrepTime"></p>
-    <p>Directions: <input type="text" v-model="newRecipeDirections"></p>
-    <button v-on:click="makeRecipe()">Make a new recipe</button>
+
 
     <!-- <h1>recipes: {{ recipes }}</h1> -->
     <div v-for="recipe in recipes">
