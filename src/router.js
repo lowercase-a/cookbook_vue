@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Test from './views/Test.vue'
 import RecipesNew from './views/RecipesNew.vue'
 import RecipesShow from './views/RecipesShow.vue'
+import RecipesEdit from './views/RecipesEdit.vue'
 
 Vue.use(Router)
 
@@ -11,6 +12,16 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    {
+      path: '/recipes/:id/edit',
+      name: 'recipes-edit',
+      component: RecipesEdit
+    },
+    {
+      path: '/recipes/new',
+      name: 'recipes-new',
+      component: RecipesNew
+    },
     {
       path: '/recipes/:id',
       name: 'recipes-show',
@@ -20,11 +31,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
-    },
-    {
-      path: '/recipes/new',
-      name: 'recipes-new',
-      component: RecipesNew
     },
     {
       path: '/test',
