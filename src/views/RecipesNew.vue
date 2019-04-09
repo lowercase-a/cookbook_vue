@@ -1,12 +1,19 @@
 <template>
   <div class="root">
     I am the /recipes/new page
-    <p>Title: <input type="text" v-model="newRecipeTitle"></p>
-    <p>Chef: <input type="text" v-model="newRecipeChef"></p>
-    <p>Ingredients: <input type="text" v-model="newRecipeIngredients"></p>
-    <p>PrepTime: <input type="text" v-model="newRecipePrepTime"></p>
-    <p>Directions: <input type="text" v-model="newRecipeDirections"></p>
-    <button v-on:click="makeRecipe()">Make a new recipe</button>
+    <div v-for="error in errors">
+      {{ error }}
+    </div>
+
+    <form v-on:submit.prevent="makeRecipe()">
+      <p>Title: <input type="text" v-model="newRecipeTitle"></p>
+      <p>Chef: <input type="text" v-model="newRecipeChef"></p>
+      <p>Ingredients: <input type="text" v-model="newRecipeIngredients"></p>
+      <p>PrepTime: <input type="text" v-model="newRecipePrepTime"></p>
+      <p>Directions: <input type="text" v-model="newRecipeDirections"></p>
+      <input type="submit" value="Make a new recipe">
+      <!-- <button>Make a new recipe</button> -->
+    </form>
   </div>
 </template>
 
@@ -20,7 +27,8 @@ export default {
       newRecipeChef: "",
       newRecipeIngredients: "",
       newRecipePrepTime: "",
-      newRecipeDirections: ""
+      newRecipeDirections: "",
+      errors: []
     };
   },
   created: function() {},
@@ -40,8 +48,13 @@ export default {
       }
 
       axios.post("/api/recipes", params).then(response => {
+        console.log('things are going well')
         console.log(response);
         this.$router.push("/")
+      }).catch(error => {
+        console.log('things are going poorly')
+        console.log(error.response.data.errors)
+        this.errors = error.response.data.errors;
       });
     }
   }
