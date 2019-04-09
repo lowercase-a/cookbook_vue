@@ -7,21 +7,9 @@
     <div v-for="recipe in recipes">
       <p>{{ recipe.title }}</p>
       <p>{{ recipe.chef }}</p>
-      <img v-bind:src="recipe.image_url">
-      <button v-on:click="toggleInfo(recipe)">Show more info</button>
-      <div v-if="recipe === currentRecipe">
-        <p>{{ recipe.ingredients }}</p>
-        <p>{{ recipe.directions }}</p>
-        <p>{{ recipe.prep_time }}</p>
-        <p>title: <input type="text" v-model="recipe.title"></p>
-        <p>chef: <input type="text" v-model="recipe.chef"></p>
-        <p>ingredients: <input type="text" v-model="recipe.ingredients"></p>
-        <p>prep_time: <input type="text" v-model="recipe.prep_time"></p>
-        <p>image_url: <input type="text" v-model="recipe.image_url"></p>
-        <p>directions: <input type="text" v-model="recipe.directions"></p>
-        <button v-on:click="updateRecipe(recipe)">Update the recipe</button>
-        <button v-on:click="deleteRecipe(recipe)">Delete the recipe</button>
-      </div>
+      <!-- <button v-on:click="toggleInfo(recipe)">Show more info</button> -->
+
+      <router-link v-bind:to="'/recipes/' + recipe.id">See more info</router-link>
       <hr>
     </div>
   </div>
