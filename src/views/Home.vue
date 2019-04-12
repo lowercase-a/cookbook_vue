@@ -11,9 +11,9 @@
     <button v-on:click="setSortAttribute('chef')">Sort by Chef</button>
     <button v-on:click="setSortAttribute('prep_time')">Sort by Prep Time</button>
     <!-- .where(title: 'licorice') -->
-    <!-- <div v-for="recipe in filterBy(recipes, titleFilter, 'title', 'ingredients')"> -->
-      <transition-group appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-        <div v-for="recipe in orderBy(recipes, sortAttribute, sortAsc)" v-bind:key="recipe.id">
+
+      <transition-group appear enter-active-class="animated wobble" leave-active-class="animated rubberBand">
+        <div v-for="recipe in orderBy(filterBy(recipes, titleFilter, 'title', 'ingredients'), sortAttribute, sortAsc)" v-bind:key="recipe.id">
           <p>{{ recipe.title }}</p>
           <p>{{ recipe.chef }}</p>
           <p>{{ recipe.prep_time }}</p>
