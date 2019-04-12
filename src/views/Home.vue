@@ -2,8 +2,9 @@
   <div class="home">
     <h1>{{ message }}</h1>
 
-    <!-- <h1>recipes: {{ recipes }}</h1> -->
-    <div v-for="recipe in recipes">
+    <input type="text" v-model="titleFilter">
+    <!-- .where(title: 'licorice') -->
+    <div v-for="recipe in filterBy(recipes, titleFilter, 'title', 'ingredients')">
       <p>{{ recipe.title }}</p>
       <p>{{ recipe.chef }}</p>
       <!-- <button v-on:click="toggleInfo(recipe)">Show more info</button> -->
@@ -22,12 +23,16 @@
 
 <script>
 import axios from "axios";
+import Vue2Filters from "vue2-filters";
+
 
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
       message: "Hello to Vue.js!",
       recipes: [],
+      titleFilter: "",
       newRecipeTitle: "",
       newRecipeChef: "",
       newRecipeIngredients: "",
