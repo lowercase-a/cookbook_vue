@@ -12,15 +12,16 @@
     <button v-on:click="setSortAttribute('prep_time')">Sort by Prep Time</button>
     <!-- .where(title: 'licorice') -->
     <!-- <div v-for="recipe in filterBy(recipes, titleFilter, 'title', 'ingredients')"> -->
-      <div v-for="recipe in orderBy(recipes, sortAttribute, sortAsc)">
-      <p>{{ recipe.title }}</p>
-      <p>{{ recipe.chef }}</p>
-      <p>{{ recipe.prep_time }}</p>
-      <!-- <button v-on:click="toggleInfo(recipe)">Show more info</button> -->
-
-      <router-link v-bind:to="'/recipes/' + recipe.id">See more info</router-link>
-      <hr>
-    </div>
+      <transition-group appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <div v-for="recipe in orderBy(recipes, sortAttribute, sortAsc)" v-bind:key="recipe.id">
+          <p>{{ recipe.title }}</p>
+          <p>{{ recipe.chef }}</p>
+          <p>{{ recipe.prep_time }}</p>
+          <button v-on:click="removeRecipe(recipe)">Remove Recipe</button>
+          <router-link v-bind:to="'/recipes/' + recipe.id">See more info</router-link>
+          <hr>
+        </div>
+      </transition-group>
   </div>
 </template>
 
@@ -63,6 +64,10 @@ export default {
     })
   },
   methods: {
+    removeRecipe: function(recipe) {
+      var index = this.recipes.indexOf(recipe);
+      this.recipes.splice(index, 2);
+    },
     setSortAttribute: function(attribute) {
       console.log(attribute);
       this.sortAttribute = attribute;
