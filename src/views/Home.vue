@@ -2,7 +2,10 @@
   <div class="home">
     <h1>{{ message }}</h1>
 
-    <input type="text" v-model="titleFilter">
+    <input type="text" v-model="titleFilter" list="titles">
+    <datalist id="titles">
+      <option v-for="recipe in recipes">{{ recipe.title }}</option>
+    </datalist>
     <!-- .where(title: 'licorice') -->
     <div v-for="recipe in filterBy(recipes, titleFilter, 'title', 'ingredients')">
       <p>{{ recipe.title }}</p>
