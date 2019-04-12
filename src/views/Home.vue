@@ -12,7 +12,7 @@
     <button v-on:click="setSortAttribute('prep_time')">Sort by Prep Time</button>
     <!-- .where(title: 'licorice') -->
     <!-- <div v-for="recipe in filterBy(recipes, titleFilter, 'title', 'ingredients')"> -->
-      <div v-for="recipe in orderBy(recipes, sortAttribute)">
+      <div v-for="recipe in orderBy(recipes, sortAttribute, sortAsc)">
       <p>{{ recipe.title }}</p>
       <p>{{ recipe.chef }}</p>
       <p>{{ recipe.prep_time }}</p>
@@ -43,6 +43,7 @@ export default {
       recipes: [],
       sortAttribute: "title",
       titleFilter: "",
+      sortAsc: 1,
       newRecipeTitle: "",
       newRecipeChef: "",
       newRecipeIngredients: "",
@@ -65,6 +66,11 @@ export default {
     setSortAttribute: function(attribute) {
       console.log(attribute);
       this.sortAttribute = attribute;
+      if (this.sortAsc === 1) {
+        this.sortAsc = -1;
+      } else {
+        this.sortAsc = 1;
+      }
     }
   }
 };
