@@ -6,10 +6,16 @@
     <datalist id="titles">
       <option v-for="recipe in recipes">{{ recipe.title }}</option>
     </datalist>
+
+    <button v-on:click="setSortAttribute('title')">Sort by title</button>
+    <button v-on:click="setSortAttribute('chef')">Sort by Chef</button>
+    <button v-on:click="setSortAttribute('prep_time')">Sort by Prep Time</button>
     <!-- .where(title: 'licorice') -->
-    <div v-for="recipe in filterBy(recipes, titleFilter, 'title', 'ingredients')">
+    <!-- <div v-for="recipe in filterBy(recipes, titleFilter, 'title', 'ingredients')"> -->
+      <div v-for="recipe in orderBy(recipes, sortAttribute)">
       <p>{{ recipe.title }}</p>
       <p>{{ recipe.chef }}</p>
+      <p>{{ recipe.prep_time }}</p>
       <!-- <button v-on:click="toggleInfo(recipe)">Show more info</button> -->
 
       <router-link v-bind:to="'/recipes/' + recipe.id">See more info</router-link>
@@ -35,6 +41,7 @@ export default {
     return {
       message: "Hello to Vue.js!",
       recipes: [],
+      sortAttribute: "title",
       titleFilter: "",
       newRecipeTitle: "",
       newRecipeChef: "",
@@ -54,6 +61,11 @@ export default {
       // console.log(response.data);
     })
   },
-  methods: {}
+  methods: {
+    setSortAttribute: function(attribute) {
+      console.log(attribute);
+      this.sortAttribute = attribute;
+    }
+  }
 };
 </script>
